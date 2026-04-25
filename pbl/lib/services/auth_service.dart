@@ -1,9 +1,15 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../models/profile_model.dart';
 
 class AuthService {
   final _supabase = Supabase.instance.client;
 
-  Future<void> register(String email, String password, String username, String role) async {
+  Future<void> register(
+    String email,
+    String password,
+    String username,
+    String role,
+  ) async {
     await _supabase.auth.signUp(
       email: email,
       password: password,
@@ -19,10 +25,38 @@ class AuthService {
 
   String? get currentUserId => _supabase.auth.currentUser?.id;
 
+  // Stream untuk auth state changes
+  Stream<String?> get authStream {
+    return _supabase.auth.onAuthStateChange.map((data) {
+      return data.session?.user.id;
+    });
+  }
+
+  Future<ProfileModel?> getCurrentUserProfile() async {
+    final user = _supabase.auth.currentUser;
+    if (user == null) return null;
+
+    try {
+      final data = await _supabase
+          .from('profiles')
+          .select()
+          .eq('id', user.id)
+          .single();
+      return ProfileModel.fromMap(data);
+    } catch (e) {
+      print('Error getting profile: $e');
+      return null;
+    }
+  }
+
   Future<String?> getMyRole() async {
     final user = _supabase.auth.currentUser;
     if (user == null) return null;
-    final data = await _supabase.from('profiles').select('role').eq('id', user.id).single();
+    final data = await _supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
     return data['role'];
   }
 }
