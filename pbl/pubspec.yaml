@@ -4,12 +4,13 @@ version: 0.0.1
 # repository: https://github.com/my_org/my_repo
 
 environment:
-  sdk: ^3.11.4
+  sdk: ^3.10.0
 
 # Add regular dependencies here.
 dependencies:
   flutter:
     sdk: flutter
+  args: ^2.4.0
   # Supabase
   supabase_flutter: ^2.3.0
   # State Management

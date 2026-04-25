@@ -84,10 +84,14 @@ class NotifikasiService {
     final userId = _supabase.auth.currentUser?.id;
     if (userId == null) return;
 
-    _supabase.from('notifikasi').on(RealtimeListenTypes.all, (payload) {
-      try {
-        if (payload.eventType == 'INSERT') {
-          final data = NotifikasiModel.fromMap(payload.newRecord);
+    _supabase.channel('notifikasi').onPostgresChanges(
+      event: PostgresChangeEvent.all,
+      schema: 'public',
+      table: 'notifikasi',
+      callback: (payload) {
+        try {
+          if (payload.eventType == PostgresChangeEvent.insert) {
+            final data = NotifikasiModel.fromMap(payload.newRecord);
           if (data.userId == userId) {
             onNewNotification(data);
           }

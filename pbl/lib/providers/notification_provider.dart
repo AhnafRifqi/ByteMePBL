@@ -27,16 +27,16 @@ class NotificationNotifier extends StateNotifier<AsyncValue<void>> {
       () => _notifikasiService.markAsRead(notifikasiId),
     );
 
-    _ref.refresh(myNotificationsProvider);
-    _ref.refresh(unreadCountProvider);
+    _ref.refresh(myNotificationsProvider); // ignore: unused_result
+    _ref.refresh(unreadCountProvider); // ignore: unused_result
   }
 
   Future<void> markAllAsRead() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => _notifikasiService.markAllAsRead());
 
-    _ref.refresh(myNotificationsProvider);
-    _ref.refresh(unreadCountProvider);
+    _ref.refresh(myNotificationsProvider); // ignore: unused_result
+    _ref.refresh(unreadCountProvider); // ignore: unused_result
   }
 
   Future<void> deleteNotification(String notifikasiId) async {
@@ -45,7 +45,7 @@ class NotificationNotifier extends StateNotifier<AsyncValue<void>> {
       () => _notifikasiService.deleteNotification(notifikasiId),
     );
 
-    _ref.refresh(myNotificationsProvider);
+    _ref.refresh(myNotificationsProvider); // ignore: unused_result
   }
 }
 

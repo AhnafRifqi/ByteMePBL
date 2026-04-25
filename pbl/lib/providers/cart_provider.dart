@@ -17,7 +17,7 @@ final cartItemsProvider = FutureProvider<List<DetailKeranjangModel>>((
 
 final cartTotalProvider = FutureProvider<double>((ref) async {
   final items = await ref.watch(cartItemsProvider.future);
-  return items.fold(0.0, (sum, item) => sum + item.subtotal);
+  return items.fold<double>(0.0, (sum, item) => sum + item.subtotal);
 });
 
 class CartNotifier extends StateNotifier<AsyncValue<void>> {
@@ -38,7 +38,7 @@ class CartNotifier extends StateNotifier<AsyncValue<void>> {
     );
 
     // Refresh cart items
-    _ref.refresh(cartItemsProvider);
+    _ref.refresh(cartItemsProvider); // ignore: unused_result
   }
 
   Future<void> updateCartItem(String detailKeranjangId, int jumlah) async {
@@ -47,7 +47,7 @@ class CartNotifier extends StateNotifier<AsyncValue<void>> {
       () => _keranjangService.updateCartItem(detailKeranjangId, jumlah),
     );
 
-    _ref.refresh(cartItemsProvider);
+    _ref.refresh(cartItemsProvider); // ignore: unused_result
   }
 
   Future<void> removeFromCart(String detailKeranjangId) async {
@@ -56,14 +56,14 @@ class CartNotifier extends StateNotifier<AsyncValue<void>> {
       () => _keranjangService.removeFromCart(detailKeranjangId),
     );
 
-    _ref.refresh(cartItemsProvider);
+    _ref.refresh(cartItemsProvider); // ignore: unused_result
   }
 
   Future<void> clearCart() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => _keranjangService.clearCart());
 
-    _ref.refresh(cartItemsProvider);
+    _ref.refresh(cartItemsProvider); // ignore: unused_result
   }
 }
 

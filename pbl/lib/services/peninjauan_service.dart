@@ -1,6 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/peninjauan_model.dart';
-import '../models/sanksi_akun_model.dart';
 
 class PeninjaauanService {
   final _supabase = Supabase.instance.client;

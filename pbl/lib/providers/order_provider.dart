@@ -43,7 +43,7 @@ class OrderNotifier extends StateNotifier<AsyncValue<void>> {
     });
 
     if (state is! AsyncError) {
-      _ref.refresh(myOrdersProvider);
+      _ref.refresh(myOrdersProvider); // ignore: unused_result
     }
 
     return pesananId;
@@ -55,7 +55,7 @@ class OrderNotifier extends StateNotifier<AsyncValue<void>> {
       () => _pesananService.cancelOrder(pesananId),
     );
 
-    _ref.refresh(myOrdersProvider);
+    _ref.refresh(myOrdersProvider); // ignore: unused_result
   }
 
   Future<void> updateOrderStatus(String pesananId, String status) async {
@@ -64,8 +64,8 @@ class OrderNotifier extends StateNotifier<AsyncValue<void>> {
       () => _pesananService.updateOrderStatus(pesananId, status),
     );
 
-    _ref.refresh(myOrdersProvider);
-    _ref.refresh(orderByIdProvider(pesananId));
+    _ref.refresh(myOrdersProvider); // ignore: unused_result
+    _ref.refresh(orderByIdProvider(pesananId)); // ignore: unused_result
   }
 }
 

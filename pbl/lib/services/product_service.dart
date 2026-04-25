@@ -1,4 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../models/product_model.dart';
 
 class ProductService {
   final _supabase = Supabase.instance.client;
@@ -9,6 +10,23 @@ class ProductService {
         .from('produk')
         .select('*, profiles(username)')
         .eq('status', 'aktif');
+  }
+
+  // Get products as ProductModel
+  Future<List<ProductModel>> getProducts() async {
+    final data = await getActiveProducts();
+    return data.map((map) => ProductModel.fromMap(map)).toList();
+  }
+
+  // Get product by id
+  Future<ProductModel?> getProductById(String produkId) async {
+    final data = await _supabase
+        .from('produk')
+        .select('*, profiles(username)')
+        .eq('produk_id', produkId)
+        .eq('status', 'aktif')
+        .single();
+    return data.isNotEmpty ? ProductModel.fromMap(data) : null;
   }
 
   // Tambah produk baru (hanya untuk role penjual)
