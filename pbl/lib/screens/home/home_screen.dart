@@ -1,18 +1,45 @@
 import 'package:flutter/material.dart';
+import '../../services/auth_service.dart';
+import '../produk/list_produk_screen.dart';
+import '../admin/peninjauan_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: const Center(child: Text('Home Screen')),
+      appBar: AppBar(
+        title: const Text('Digital Marketplace'),
+        actions: [
+          IconButton(onPressed: () => AuthService().logout(), icon: const Icon(Icons.logout))
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ListProdukScreen())),
+              child: const Text('Lihat Produk'),
+            ),
+            const SizedBox(height: 10),
+            FutureBuilder<String?>(
+              future: AuthService().getMyRole(),
+              builder: (context, snapshot) {
+                if (snapshot.data == 'admin') {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red.shade100),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PeninjauanScreen())),
+                    child: const Text('Panel Admin'),
+                  );
+                }
+                return const SizedBox();
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 }

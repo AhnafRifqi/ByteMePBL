@@ -8,7 +8,10 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  args: ^2.7.0
+  flutter:
+    sdk: flutter
+  # Tambahkan ini untuk koneksi ke database Supabase
+  supabase_flutter: ^2.3.0
 
 dev_dependencies:
   lints: ^6.0.0

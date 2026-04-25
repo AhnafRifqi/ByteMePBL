@@ -1,18 +1,18 @@
+import 'dart:io';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 class StorageService {
-  // Local storage service implementation
+  final _supabase = Supabase.instance.client;
 
-  Future<void> saveData(String key, String value) async {
-    // TODO: Implement data saving logic
-    throw UnimplementedError();
+  Future<String?> uploadFile(File file, String bucket, String fileName) async {
+    final userId = _supabase.auth.currentUser!.id;
+    final path = '$userId/$fileName';
+    
+    await _supabase.storage.from(bucket).upload(path, file);
+    return path;
   }
 
-  Future<String?> getData(String key) async {
-    // TODO: Implement data retrieval logic
-    throw UnimplementedError();
-  }
-
-  Future<void> deleteData(String key) async {
-    // TODO: Implement data deletion logic
-    throw UnimplementedError();
+  Future<String> getDownloadUrl(String path) async {
+    return await _supabase.storage.from('produk-digital').createSignedUrl(path, 60);
   }
 }
