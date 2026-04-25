@@ -17,8 +17,8 @@ import 'screens/admin/peninjauan_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
-    url: 'sb_publishable_BOJgSZBCl0sgLI0IVACDbw_U-d5XA7P', // Replace with your URL
-    anonKey: 'sb_secret_uxa-2i4Ipj6vhH95M69OMg_mmtsi5Og', // Replace with your key
+    url: '', // Replace with your URL
+    anonKey: '', // Replace with your key
   );
   runApp(const ProviderScope(child: MyApp()));
 }
