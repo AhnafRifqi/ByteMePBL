@@ -41,8 +41,8 @@ Future<void> main() async {
   ));
 
   await Supabase.initialize(
-    url: 'https://bykkezaomoaulafrkzkd.supabase.co',    // ← Ganti dengan URL Supabase kamu
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ5a2tlemFvbW9hdWxhZnJremtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwOTQyNzUsImV4cCI6MjA5MjY3MDI3NX0.kG6LfK3FZPOsfKk-XwprsYdqz9f0KLEfmeP0yE-knqc',    // ← Ganti dengan Anon Key Supabase kamu
+    url: 'https://.supabase.co',    // ← Ganti dengan URL Supabase kamu
+    anonKey: '',    // ← Ganti dengan Anon Key Supabase kamu
   );
 
   runApp(const ProviderScope(child: MyApp()));
