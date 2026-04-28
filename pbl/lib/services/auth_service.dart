@@ -42,6 +42,8 @@ class AuthService {
           .select()
           .eq('id', user.id)
           .single();
+      // Tambahkan email dari auth user
+      data['email'] = user.email ?? '';
       return ProfileModel.fromMap(data);
     } catch (e) {
       print('Error getting profile: $e');
